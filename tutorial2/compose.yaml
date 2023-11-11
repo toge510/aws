@@ -1,0 +1,19 @@
+services:
+  db:
+    image: mariadb:10-focal
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=test_db
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+    ports:
+      - "3306:3306"
+
+volumes:
+  db-data:
+
+secrets:
+  db-password:
+    file: db/password.txt
